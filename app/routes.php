@@ -22,3 +22,8 @@ Route::get('hello', function()
 {
 	return RestApi::helloWorld();
 });
+
+Route::get('track', function()
+{
+	return View::make('pages.home');
+});

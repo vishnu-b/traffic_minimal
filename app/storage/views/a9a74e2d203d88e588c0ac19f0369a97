@@ -1,8 +1,7 @@
-@extends('layouts.default')
-@section('title')
+<?php $__env->startSection('title'); ?>
 	<title>Technowell Traffic | Citizen Tracking</title>
-@stop
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 	<div id="mapcanvas"></div>
 		<!-- <div class="panel-group filter-btn" id="accordion">
 		  	<div class="panel panel-default">
@@ -20,4 +19,5 @@
 			    </div>
 			  		</div>
 		      </div> -->
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

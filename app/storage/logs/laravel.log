@@ -114,3 +114,12 @@ Stack trace:
 #18 /var/www/html/traffic/public/index.php(49): Illuminate\Foundation\Application->run()
 #19 /var/www/html/traffic/server.php(19): require_once('/var/www/html/t...')
 #20 {main} [] []
+[2014-06-16 10:07:55] production.ERROR: exception 'InvalidArgumentException' with message 'Command "sereve" is not defined.
+
+Did you mean this?
+    serve' in /var/www/html/traffic/vendor/symfony/console/Symfony/Component/Console/Application.php:564
+Stack trace:
+#0 /var/www/html/traffic/vendor/symfony/console/Symfony/Component/Console/Application.php(190): Symfony\Component\Console\Application->find('sereve')
+#1 /var/www/html/traffic/vendor/symfony/console/Symfony/Component/Console/Application.php(124): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 /var/www/html/traffic/artisan(59): Symfony\Component\Console\Application->run()
+#3 {main} [] []

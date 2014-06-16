@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+	
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<?php echo HTML::script('js/include_map.js'); ?>
+	<?php echo $__env->make('includes.head', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php $__env->startSection('title'); ?>
+		<title>Technowell Traffic</title>
+	<?php echo $__env->yieldSection(); ?>
+</head>
+<body>
+	<div class="container-fluid">
+		<header class="row">
+			<?php echo $__env->make('includes.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		</header>
+		<div id="main">
+			<?php echo $__env->yieldContent('content'); ?>
+		</div>
+		<footer class="row">
+			<?php echo $__env->make('includes.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		</footer>
+	</div>	
+</body>
+</html>

@@ -1,0 +1,11 @@
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="author" name="vishnu">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<?php echo HTML::style('css/bootstrap.css'); ?>
+<?php echo HTML::style('css/font-awesome.min.css'); ?>
+<?php echo HTML::style('css/main.css'); ?>
+
+<?php echo HTML::script('js/jquery-2.1.1.js'); ?>
+<?php echo HTML::script('js/bootstrap.js'); ?>

@@ -17,9 +17,9 @@
 		<div id="main">
 			@yield('content')
 		</div>
-		<!-- <footer class="row">
+		<footer class="row">
 			@include('includes.footer')
-		</footer> -->
+		</footer>
 	</div>	
 </body>
 </html>
