@@ -4,10 +4,18 @@ class RestApi {
 
 	public static function sendNotification($flag, $lat, $lng, $address, $ctime, $registrationIDs) {
 		$api_key = "AIzaSyBH2OD9dUrh9yoYSowf_Fi5b2619AnJsbs";
+		$regIdArray = [];
+
        	$message = array("flag" => $flag, "lat" => $lat, "lng" => $lng, "address" => $address, "ctime" => $ctime);
 		$url = 'https://android.googleapis.com/gcm/send';
+		$registrationIDs = RegisteredDevice::all(array('reg_id'));
+		foreach ($registrationIDs as $regId) {
+			array_push($regIdArray, $regId->reg_id);
+		}
+		//return $regIdArray;
+		/*$registrationIDs= array("APA91bGonBsBR3pwpwCxAa8dFHcHnU2jFIqjXaFkiEHkayRSFdxwXVSJJl7L9aZA2bdJH7WkspDMzPeBTMd4hQtFuJs5KOxFPg0mBzHddJQfp_tLFacmPcimObnYT66GVzojIb6rfCUeknwTup99XHEDtHbmA-QOFLxVWs3Q_p1hAAaPSSKApgri2U1OvIFmpijUdXS6OgwA");*/
 		$fields = array(
-                	'registration_ids'  => $registrationIDs,
+                	'registration_ids'  => $regIdArray,
                	 	'data'              => array( "message" => $message ),
                 );
 
@@ -25,7 +33,7 @@ class RestApi {
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( $fields ) );
 		$result = curl_exec($ch);
-		//echo $result;
+		return $result;
 		curl_close($ch);
 	}
 

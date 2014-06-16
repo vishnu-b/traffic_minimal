@@ -64,6 +64,8 @@ class AccidentController extends \BaseController {
 		$report->title = 'Test Value';//RestApi::getaddress(Request::get('lat'), Request::get('lng'));
 		$report->save();
 
+		//RestApi::sendNotification()
+
 		return Response::json(array(
 			'error' => false),
 			200

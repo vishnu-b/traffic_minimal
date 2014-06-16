@@ -64,13 +64,13 @@ class TrafficJamController extends \BaseController {
 		$report->title = 'Test Value';//RestApi::getaddress(Request::get('lat'), Request::get('lng'));
 		$report->save();
 
-		//RestApi::sendNotification('TJ', Request::get('lat'), Request::get('lng'), RestApi::getaddress(Request::get('lat'), Request::get('lng')), )
+		return RestApi::sendNotification('TJ', Request::get('lat'), Request::get('lng'), RestApi::getaddress(Request::get('lat'), Request::get('lng')), '12', array('APA91bGonBsBR3pwpwCxAa8dFHcHnU2jFIqjXaFkiEHkayRSFdxwXVSJJl7L9aZA2bdJH7WkspDMzPeBTMd4hQtFuJs5KOxFPg0mBzHddJQfp_tLFacmPcimObnYT66GVzojIb6rfCUeknwTup99XHEDtHbmA-QOFLxVWs3Q_p1hAAaPSSKApgri2U1OvIFmpijUdXS6OgwA') );
 
-		return Response::json(array(
+		/*return Response::json(array(
 			'error' => false),
 			200
 		);
-
+*/
 	}
 
 
