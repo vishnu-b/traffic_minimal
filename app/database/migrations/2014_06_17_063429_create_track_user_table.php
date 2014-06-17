@@ -15,7 +15,7 @@ class CreateTrackUserTable extends Migration {
 		Schema::create('track_user', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('app_id', 20);
+			$table->string('track_id', 20);
 			$table->string('latitude', 20);
 			$table->string('longitude', 20);
 			$table->string('status', 2);

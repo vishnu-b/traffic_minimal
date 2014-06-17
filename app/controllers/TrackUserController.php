@@ -9,7 +9,16 @@ class TrackUserController extends \BaseController {
 	 */
 	public function index()
 	{
-		$track_id = TrackId::all();
+		/* select all users in track_user table who wants to be tracked
+			user who wants to be tracked will have status set as 1
+			select by the max(id
+		*/
+		$track_id = TrackUser:: where('status', '=', '1')
+								->orderBy('created_at', 'DESC')
+								->select(DB::raw('*, max(id) as id'))
+								->orderBy('id', 'desc')
+								->groupBy('track_id')
+								->get();
 		return $track_id;
 	}
 
@@ -33,7 +42,7 @@ class TrackUserController extends \BaseController {
 	public function store()
 	{
 		$user = new TrackUser;
-		$user->user_id = Request::get('trackid');
+		$user->track_id = Request::get('trackid');
 		$user->latitude = Request::get('lat');
 		$user->longitude = Request::get('lng');
 		$user->status = Request::get('status');
