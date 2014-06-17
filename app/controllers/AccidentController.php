@@ -52,14 +52,14 @@ class AccidentController extends \BaseController {
     		));
 
 		$report = new Report;
-		$report->occ_id = $accident->id;
+		$report->traffic_jam_id = $accident->id;
 		$report->user = Request::get('user');
 		$report->latitude = Request::get('lat');
 		$report->longitude = Request::get('lng');
 		$report->time = date('g:i A', time());
 		$report->date = date('M j', time());
 		$report->description = "There has been an accident. " . Request::get('details');
-		$report->image_url = 'http://1.22.136.51/traffic/' . $imageurl;
+		$report->image_url = 'http://125.62.200.54/traffic/' . $imageurl;
 		$report->type = 'Accident';
 		$report->title = 'Test Value';//RestApi::getaddress(Request::get('lat'), Request::get('lng'));
 		$report->save();

@@ -1,6 +1,6 @@
 <?php
 
-class ReportController extends \BaseController {
+class TrackIdController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,18 +9,22 @@ class ReportController extends \BaseController {
 	 */
 	public function index()
 	{
-		/*$reports = [];
-		$trafficjams = TrafficJam::where('clear_by', '>=', date('Y-m-d H:i:s', time()))->get();
-		foreach ($trafficjams as $value) {
-			array_push($reports, $value->report);
-		}*/
-		$reports = [];
-		$report = Report::all();
-		foreach ( $report as $key ) {
-			if( ($key->clear_by >= date('Y-m-d H:i:s', time())) || $key->type == 'Accident' )
-				array_push($reports, $key);
+		$track_id = TrackId::orderBy('created_at', 'DESC')->get(array('track_id'));
+		foreach ($track_id as $key) {
+			if(is_numeric($key->track_id))
+			{
+				$key->track_id+= 1;
+				$track = new TrackId;
+				$track->track_id = $key->track_id;
+				$track->save();
+				return $key;
+			}
+
 		}
-		return Response::json(array('report'=>$reports), 200);
+
+		
+
+		//return $track_id;
 	}
 
 
@@ -42,7 +46,11 @@ class ReportController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$track = new TrackId;
+
+		$track->track_id = Request::get('track_id');
+
+		$track->save();
 	}
 
 
@@ -54,8 +62,7 @@ class ReportController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$reports = Report::where('user', $id)->get();
-		return Response::json($reports, 200);
+		//
 	}
 
 

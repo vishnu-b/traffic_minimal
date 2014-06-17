@@ -1,6 +1,6 @@
 <?php
 
-class ReportController extends \BaseController {
+class DeviceRegisterController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,18 +9,8 @@ class ReportController extends \BaseController {
 	 */
 	public function index()
 	{
-		/*$reports = [];
-		$trafficjams = TrafficJam::where('clear_by', '>=', date('Y-m-d H:i:s', time()))->get();
-		foreach ($trafficjams as $value) {
-			array_push($reports, $value->report);
-		}*/
-		$reports = [];
-		$report = Report::all();
-		foreach ( $report as $key ) {
-			if( ($key->clear_by >= date('Y-m-d H:i:s', time())) || $key->type == 'Accident' )
-				array_push($reports, $key);
-		}
-		return Response::json(array('report'=>$reports), 200);
+		$regDevices= RegisteredDevice::all();
+		return Response::json($regDevices, 200);
 	}
 
 
@@ -31,7 +21,7 @@ class ReportController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		
 	}
 
 
@@ -42,7 +32,14 @@ class ReportController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$device = new RegisteredDevice;
+		$device->reg_id = Request::get('reg_id');
+		$device->save();
+
+		return Response::json(array(
+			'error' => false),
+			200
+		);
 	}
 
 
@@ -54,8 +51,7 @@ class ReportController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$reports = Report::where('user', $id)->get();
-		return Response::json($reports, 200);
+		//
 	}
 
 

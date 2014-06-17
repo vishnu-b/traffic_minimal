@@ -12,7 +12,7 @@ class CreateTrafficjamsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('trafficjams', function(Blueprint $table)
+		Schema::create('traffic_jams', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('user');
@@ -36,7 +36,7 @@ class CreateTrafficjamsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('trafficjams');
+		Schema::drop('traffic_jams');
 	}
 
 }

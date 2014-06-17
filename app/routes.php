@@ -16,6 +16,9 @@ Route::group(array('prefix' => 'api'), function()
     Route::resource('report', 'ReportController');
     Route::resource('accident', 'AccidentController');
     Route::resource('trafficjam', 'TrafficJamController');
+    Route::resource('registerdevice', 'DeviceRegisterController');
+    Route::resource('trackuser', 'TrackUserController');
+    Route::resource('trackid', 'TrackIdController');
 });
 
 Route::get('hello', function()

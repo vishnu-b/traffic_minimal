@@ -2,7 +2,7 @@
 
 class RestApi {
 
-	public static function sendNotification($flag, $lat, $lng, $address, $ctime, $registrationIDs) {
+	public static function sendNotification($flag, $lat, $lng, $address, $ctime) {
 		$api_key = "AIzaSyBH2OD9dUrh9yoYSowf_Fi5b2619AnJsbs";
 		$regIdArray = [];
 
@@ -12,8 +12,6 @@ class RestApi {
 		foreach ($registrationIDs as $regId) {
 			array_push($regIdArray, $regId->reg_id);
 		}
-		//return $regIdArray;
-		/*$registrationIDs= array("APA91bGonBsBR3pwpwCxAa8dFHcHnU2jFIqjXaFkiEHkayRSFdxwXVSJJl7L9aZA2bdJH7WkspDMzPeBTMd4hQtFuJs5KOxFPg0mBzHddJQfp_tLFacmPcimObnYT66GVzojIb6rfCUeknwTup99XHEDtHbmA-QOFLxVWs3Q_p1hAAaPSSKApgri2U1OvIFmpijUdXS6OgwA");*/
 		$fields = array(
                 	'registration_ids'  => $regIdArray,
                	 	'data'              => array( "message" => $message ),

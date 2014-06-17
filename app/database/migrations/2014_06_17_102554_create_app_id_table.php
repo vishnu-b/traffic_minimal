@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegdevicesTable extends Migration {
+class CreateAppIdTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class CreateRegdevicesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('registered_devices', function(Blueprint $table)
+		Schema::create('track_id', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('app_id', 20);
-			$table->string('reg_id');
+			$table->string('track_id', 25);
+			$table->integer('status');
 			$table->timestamps();
 		});
 	}
@@ -28,7 +28,7 @@ class CreateRegdevicesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('registered_devices');
+		Schema::drop('track_id');
 	}
 
 }

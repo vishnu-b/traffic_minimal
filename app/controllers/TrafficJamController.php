@@ -32,12 +32,17 @@ class TrafficJamController extends \BaseController {
 	 */
 	public function store()
 	{
-		$imageurl = "public/images/report/trafficjam_".time().".jpg";
-		$base = Request::get('image');
-		$binary = base64_decode($base);
-	    $ifp = fopen( $imageurl, "wb" ); 
-    	fwrite( $ifp, $binary); 
-    	fclose( $ifp ); 
+		$imageurl = '';
+		if(Request::get('image')!='')
+		{
+			$imageurl = "public/images/report/trafficjam_".time().".jpg";
+			$base = Request::get('image');
+			$binary = base64_decode($base);
+	    	$ifp = fopen( $imageurl, "wb" ); 
+    		fwrite( $ifp, $binary); 
+    		fclose( $ifp ); 
+    		$imageurl = 'http://125.62.200.54/traffic/' . $imageurl;
+    	}
 
 		$trafficJam = TrafficJam::create(array(
 			'user'		=> Request::get('user'),
@@ -48,7 +53,7 @@ class TrafficJamController extends \BaseController {
 			'date'		=> date('M j', time()),
 			'status'	=> Request::get('status'),
 			'reason'	=> Request::get('reason'),
-			'image_url'	=> 'http://1.22.136.51/traffic/' . $imageurl
+			'image_url'	=> $imageurl
 			));
 
 		$report = new Report;
@@ -58,13 +63,14 @@ class TrafficJamController extends \BaseController {
 		$report->longitude = Request::get('lng');
 		$report->time = date('g:i A', time());
 		$report->date = date('M j', time());
-		$report->description = 'Test Value';//"There is a " . Request::get('status') . " traffic jam at " . RestApi::getaddress(Request::get('lat'), Request::get('lng')) . " due to " . Request::get('reason');
-		$report->image_url = 'http://1.22.136.51/traffic/' . $imageurl;
+		$report->clear_by = RestApi::clearBy(Request::get('status'));
+		$report->description = "There is a " . Request::get('status') . " traffic jam at " . RestApi::getaddress(Request::get('lat'), Request::get('lng')) . " due to " . Request::get('reason');
+		$report->image_url = $imageurl;
 		$report->type = 'Traffic Jam';
-		$report->title = 'Test Value';//RestApi::getaddress(Request::get('lat'), Request::get('lng'));
+		$report->title = RestApi::getaddress(Request::get('lat'), Request::get('lng'));
 		$report->save();
 
-		return RestApi::sendNotification('TJ', Request::get('lat'), Request::get('lng'), RestApi::getaddress(Request::get('lat'), Request::get('lng')), '12', array('APA91bGonBsBR3pwpwCxAa8dFHcHnU2jFIqjXaFkiEHkayRSFdxwXVSJJl7L9aZA2bdJH7WkspDMzPeBTMd4hQtFuJs5KOxFPg0mBzHddJQfp_tLFacmPcimObnYT66GVzojIb6rfCUeknwTup99XHEDtHbmA-QOFLxVWs3Q_p1hAAaPSSKApgri2U1OvIFmpijUdXS6OgwA') );
+		return RestApi::sendNotification('TJ', Request::get('lat'), Request::get('lng'), RestApi::getaddress(Request::get('lat'), Request::get('lng')), '12');
 
 		/*return Response::json(array(
 			'error' => false),

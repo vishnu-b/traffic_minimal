@@ -15,12 +15,13 @@ class CreateReportsTable extends Migration {
 		Schema::create('reports', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('occ_id');
+			$table->integer('traffic_jam_id');
 			$table->string('user');
 			$table->string('latitude');
 			$table->string('longitude');
 			$table->string('date');
 			$table->string('time');
+			$table->timestamp('clear_by');
 			$table->string('type');
 			$table->string('title');
 			$table->string('description');
