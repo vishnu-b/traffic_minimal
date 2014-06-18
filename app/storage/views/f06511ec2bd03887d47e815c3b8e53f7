@@ -1,9 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
-	
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<?php echo HTML::script('js/include_map.js'); ?>
+	<?php echo HTML::script('js/jquery-2.1.1.js'); ?>
+	<?php echo HTML::script('js/include-map.js'); ?>
+	<?php $__env->startSection('head'); ?>
+	<?php echo $__env->yieldSection(); ?>	
 	<?php echo $__env->make('includes.head', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	<?php $__env->startSection('title'); ?>
 		<title>Technowell Traffic</title>

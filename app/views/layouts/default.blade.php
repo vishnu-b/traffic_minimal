@@ -1,9 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
-	
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	{{ HTML::script('js/include_map.js') }}
+	{{ HTML::script('js/jquery-2.1.1.js')}}
+	{{ HTML::script('js/include-map.js') }}
+	@section('head')
+	@show	
 	@include('includes.head')
 	@section('title')
 		<title>Technowell Traffic</title>

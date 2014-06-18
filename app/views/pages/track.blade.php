@@ -1,7 +1,13 @@
 @extends('layouts.default')
+
+@section('head')
+	{{ HTML::script('js/track-user.js') }}
+@stop
+
 @section('title')
 	<title>Technowell Traffic | Citizen Tracking</title>
 @stop
+
 @section('content')
 	<div id="mapcanvas"></div>
 		<!-- <div class="panel-group filter-btn" id="accordion">

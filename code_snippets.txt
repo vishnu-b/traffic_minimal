@@ -1,0 +1,10 @@
+/* PHP Laravel
+To make an internal request to the Rest API
+*/
+
+$request = Request::create('/api/report', 'GET');
+$response = Route::dispatch($request);
+
+// Symphony documentation for the Route
+
+http://api.symfony.com/2.4/Symfony/Component/HttpFoundation/Request.html#method_create

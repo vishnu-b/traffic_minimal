@@ -21,12 +21,12 @@ Route::group(array('prefix' => 'api'), function()
     Route::resource('trackid', 'TrackIdController');
 });
 
-Route::get('hello', function()
-{
-	return RestApi::helloWorld();
-});
-
 Route::get('track', function()
 {
-	return View::make('pages.home');
+	return View::make('pages.track');
+});
+
+Route::get('accident', function()
+{
+	return View::make('pages.accident');
 });

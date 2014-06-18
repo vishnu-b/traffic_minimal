@@ -13,12 +13,19 @@ class TrackUserController extends \BaseController {
 			user who wants to be tracked will have status set as 1
 			select by the max(id
 		*/
-		$track_id = TrackUser:: where('status', '=', '1')
+		/*$track_id = TrackUser:: where('status', '=', '1')
 								->orderBy('created_at', 'DESC')
 								->select(DB::raw('*, max(id) as id'))
 								->orderBy('id', 'desc')
 								->groupBy('track_id')
-								->get();
+								->get();*/
+		$track_id = DB::select(DB::raw("SELECT t.* FROM track_user t 
+										JOIN 
+										( SELECT track_id, latitude, longitude, MAX(id) maxId
+										  FROM track_user WHERE status != 0 GROUP BY track_id
+										) t2
+										ON t.id = t2.maxId AND t.track_id = t2.track_id"));
+		
 		return $track_id;
 	}
 
@@ -63,7 +70,8 @@ class TrackUserController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$user = TrackUser::where('track_id', '=', $id)->get();
+		return Response::json(array($user, 200));
 	}
 
 

@@ -1,6 +1,11 @@
+<?php $__env->startSection('head'); ?>
+	<?php echo HTML::script('js/track-user.js'); ?>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('title'); ?>
 	<title>Technowell Traffic | Citizen Tracking</title>
 <?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 	<div id="mapcanvas"></div>
 		<!-- <div class="panel-group filter-btn" id="accordion">
