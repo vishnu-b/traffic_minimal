@@ -19,6 +19,7 @@ Route::group(array('prefix' => 'api'), function()
     Route::resource('registerdevice', 'DeviceRegisterController');
     Route::resource('trackuser', 'TrackUserController');
     Route::resource('trackid', 'TrackIdController');
+    Route::resource('trackassign', 'TrackAssignController');
 });
 
 Route::get('track', function()
