@@ -13,19 +13,33 @@ class TrackUserController extends \BaseController {
 			user who wants to be tracked will have status set as 1
 			select by the max(id
 		*/
-		/*$track_id = TrackUser:: where('status', '=', '1')
-								->orderBy('created_at', 'DESC')
+		/*$track_id = TrackUser:: orderBy('created_at', 'DESC')
 								->select(DB::raw('*, max(id) as id'))
 								->orderBy('id', 'desc')
 								->groupBy('track_id')
-								->get();*/
+								->get();
+
+			for($i = 0; $i < sizeof($track_id); $i++)
+			{
+				if( $track_id[$i]['status'] == 0 )
+					unset($track_id[$i]);
+			}
+		*/
+		
 		$track_id = DB::select(DB::raw("SELECT t.* FROM track_user t 
 										JOIN 
 										( SELECT track_id, latitude, longitude, MAX(id) maxId
-										  FROM track_user WHERE status != 0 GROUP BY track_id
+										  FROM track_user GROUP BY track_id
 										) t2
 										ON t.id = t2.maxId AND t.track_id = t2.track_id"));
 		
+		for($i = 0; $i < sizeof($track_id); $i++)
+		{
+			if($track_id[$i]->status == 0)
+				unset($track_id[$i]);
+
+		}
+		//print_r($track_id);
 		return $track_id;
 	}
 
@@ -56,7 +70,7 @@ class TrackUserController extends \BaseController {
 		$user->save();
 
 		return Response::json(array(
-			'error' => false),
+			'status' => Request::get('status')),
 			200
 		);
 	}
@@ -71,7 +85,7 @@ class TrackUserController extends \BaseController {
 	public function show($id)
 	{
 		$user = TrackUser::where('track_id', '=', $id)->get();
-		return Response::json(array($user, 200));
+		return Response::json(array($user), 200);
 	}
 
 
@@ -107,7 +121,45 @@ class TrackUserController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		
+	}
+
+
+	public function trackuser($user_id)
+	{
+		$track_ids = TrackAssign::where('tracker_id', '=', $user_id)->get(array('user_id'));
+
+		//$query = "SELECT MAX(id) FROM track_user WHERE track_id IN ('12', 'vishnu')";
+		$query = "SELECT * FROM track_user AS t1 WHERE id IN (SELECT MAX(id)  FROM track_user WHERE track_id = t1.track_id) AND track_id IN ('vishnu', 'raj') ";//AND t1.track_id = t2.track_id) GROUP BY t1.id";
+
+		//$query = "SELECT * FROM track_user as t1 WHERE "
+
+		//$query = "SELECT track_id, latitude, longitude, MAX(id), id FROM track_user WHERE ";
+		/*$i = 0;
+		foreach ($track_ids as $id)
+		{
+			if ($i++ > 0)
+				$query .= " OR ";
+			$query .= "t1.track_id = '" . $id['user_id'] . "'";
+		}
+
+		//$query .= " GROUP BY id DESC LIMIT ". $i;*/
+
+		$track_details = DB::select(DB::raw($query));
+/*
+		for($i =0; $i<sizeof($track_details); $i++)
+		{
+			foreach ($track_ids as $id)
+			{
+				echo $track_details[$i]->id, $id['user_id'];
+				if($track_details[$i]->id == $id['user_id'])
+					unset($track_details[$i]);
+			}
+		}
+*/
+	//	return Response::json($tracker_ids);
+	    return $track_details;
+	//	return $query;
 	}
 
 

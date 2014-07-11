@@ -22,6 +22,8 @@ Route::group(array('prefix' => 'api'), function()
     Route::resource('trackassign', 'TrackAssignController');
 });
 
+Route::get('trackother/{userid}', 'TrackUserController@trackuser');
+
 Route::get('track', function()
 {
 	return View::make('pages.track');

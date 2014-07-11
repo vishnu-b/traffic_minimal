@@ -35,11 +35,14 @@ class TrackAssignController extends \BaseController {
 		$tracker_id = explode(',', $tracker_ids);
 		foreach ($tracker_id as $id)
 		{
-			$assign = new TrackAssign;
-			$assign->user_id = Request::get('user_id');
-			$assign->tracker_id = $id;
-			$assign->status = 1;
-			$assign->save();
+			if(trim($id) != 'null')
+			{
+				$assign = new TrackAssign;
+				$assign->user_id = Request::get('user_id');
+				$assign->tracker_id = $id;
+				$assign->status = 1;
+				$assign->save();
+			}	
 		}
 		/*
 		$assign = new TrackAssign;
