@@ -33,24 +33,44 @@ class TrackAssignController extends \BaseController {
 	{
 		$tracker_ids = Request::get('tracker_ids') ;
 		$tracker_id = explode(',', $tracker_ids);
+		$usernameArray = [];
+
 		foreach ($tracker_id as $id)
 		{
 			if(trim($id) != 'null')
 			{
-				$assign = new TrackAssign;
-				$assign->user_id = Request::get('user_id');
-				$assign->tracker_id = $id;
-				$assign->status = 1;
-				$assign->save();
+				$username = null;
+				if(is_numeric($id)){
+					$user = User::where('mobile','=', $id)->get(array('username'));
+					foreach ($user as $name)
+					{
+						$username = $name->username;
+						array_push($usernameArray, $username);
+					}
+				}
+				
+				$validate = TrackAssign::where('user_id', '=', Request::get('user_id'))->where('tracker_id', '=', $username)->first();
+				if($username != null)
+				{
+					if($validate == null)
+					{	$assign = new TrackAssign;
+						$assign->user_id = Request::get('user_id');
+						$assign->tracker_id = $username;
+						$assign->status = 1;
+						$assign->save();
+					}
+					else
+					{
+						$validate->status = 1;
+						$validate->save();
+					}
+				}	
 			}	
 		}
-		/*
-		$assign = new TrackAssign;
-		$assign->user_id = Request::get('userid');
-		$assign->tracker_id = Request::get('tracker_ids');
-		$assign->status = 1;*/
-
-		return Response::json($tracker_id);
+		return Response::json(array(
+				"status" => "OK",
+				"users" => $usernameArray),
+				200);
 	}
 
 

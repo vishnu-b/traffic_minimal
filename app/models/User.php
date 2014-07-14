@@ -23,4 +23,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	public static $rules = array('username' => 'required|unique:users',
+								 'email' => 'required|unique:users',
+								 'mobile' => 'required|unique:users'
+								 );
+
+	public static $messages = array('username.unique' => 'Username already exists. Try another one.',
+								    'email.unique' => 'Email already registered. Try with different one.',
+								    'mobile.unique' => 'A user has already registered with this number.');
+
 }

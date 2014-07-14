@@ -9,22 +9,7 @@ class TrackUserController extends \BaseController {
 	 */
 	public function index()
 	{
-		/* select all users in track_user table who wants to be tracked
-			user who wants to be tracked will have status set as 1
-			select by the max(id
-		*/
-		/*$track_id = TrackUser:: orderBy('created_at', 'DESC')
-								->select(DB::raw('*, max(id) as id'))
-								->orderBy('id', 'desc')
-								->groupBy('track_id')
-								->get();
-
-			for($i = 0; $i < sizeof($track_id); $i++)
-			{
-				if( $track_id[$i]['status'] == 0 )
-					unset($track_id[$i]);
-			}
-		*/
+		
 		
 		$track_id = DB::select(DB::raw("SELECT t.* FROM track_user t 
 										JOIN 
@@ -127,39 +112,38 @@ class TrackUserController extends \BaseController {
 
 	public function trackuser($user_id)
 	{
+
 		$track_ids = TrackAssign::where('tracker_id', '=', $user_id)->get(array('user_id'));
+		$track_id = TrackAssign::where('tracker_id', '=', $user_id)->first();
 
-		//$query = "SELECT MAX(id) FROM track_user WHERE track_id IN ('12', 'vishnu')";
-		$query = "SELECT * FROM track_user AS t1 WHERE id IN (SELECT MAX(id)  FROM track_user WHERE track_id = t1.track_id) AND track_id IN ('vishnu', 'raj') ";//AND t1.track_id = t2.track_id) GROUP BY t1.id";
-
-		//$query = "SELECT * FROM track_user as t1 WHERE "
-
-		//$query = "SELECT track_id, latitude, longitude, MAX(id), id FROM track_user WHERE ";
-		/*$i = 0;
-		foreach ($track_ids as $id)
-		{
-			if ($i++ > 0)
-				$query .= " OR ";
-			$query .= "t1.track_id = '" . $id['user_id'] . "'";
-		}
-
-		//$query .= " GROUP BY id DESC LIMIT ". $i;*/
-
-		$track_details = DB::select(DB::raw($query));
-/*
-		for($i =0; $i<sizeof($track_details); $i++)
-		{
+		if($track_id != null)
+		{	$query = "SELECT * FROM track_user AS t1 WHERE id IN (SELECT MAX(id)  FROM track_user WHERE track_id = t1.track_id) AND track_id IN (";
+			$i = 0;
 			foreach ($track_ids as $id)
 			{
-				echo $track_details[$i]->id, $id['user_id'];
-				if($track_details[$i]->id == $id['user_id'])
+				if ($i++ > 0)
+					$query .= ",";
+				$query .= "'" . $id['user_id'] . "'";
+			}
+			$query .= ")";
+
+			$track_details = DB::select(DB::raw($query));
+			
+			for($i = 0; $i < sizeof($track_details); $i++)
+			{
+				if($track_details[$i]->status == 0)
 					unset($track_details[$i]);
 			}
+	    	return Response::json(array(
+	    		'status' => 'OK',
+	    		'details' => $track_details),
+	    		200);
 		}
-*/
-	//	return Response::json($tracker_ids);
-	    return $track_details;
-	//	return $query;
+		else
+			return Response::json(array(
+	    		'status' => 'FAILED'),
+	    		200);
+
 	}
 
 

@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 		$this->call('ReportsTableSeeder');
+        $this->call('UsersTableSeeder');
 	}
 
 }
@@ -50,7 +51,37 @@ class ReportsTableSeeder extends Seeder {
             'description' => 'Near Safilguda railway gate there is a heavy traffic jam. Expect slow moving traffic till 2:10 PM',
             'image_url' =>'http://frylake.com/wp-content/uploads/2008/07/road-work-july-2008-008.jpg'
         ));
+
+    }
  
+}
+
+class UsersTableSeeder extends Seeder {
+ 
+    public function run()
+    {
+        DB::table('users')->delete();
+ 
+        User::create(array(
+            'username' => 'vishnu',
+            'email' => 'vishnu.nxg@gmail.com',
+            'password' => Hash::make('123456'),
+            'mobile' => '9963473546'    
+        ));
+ 
+        User::create(array(
+            'username' => 'tester',
+            'email' => 'tester@yahoo.com',
+            'password' => Hash::make('GZ#120'),
+            'mobile' => '123345'    
+        ));
+        
+        User::create(array(
+            'username' => 'tester1',
+            'email' => 'tester.one@gmail.com',
+            'password' => Hash::make('678912'),
+            'mobile' => '996347'    
+        ));
     }
  
 }
