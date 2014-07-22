@@ -134,10 +134,20 @@ class TrackUserController extends \BaseController {
 				if($track_details[$i]->status == 0)
 					unset($track_details[$i]);
 			}
-	    	return Response::json(array(
+			if(!empty($track_details))
+			{	
+				return Response::json(array(
 	    		'status' => 'OK',
 	    		'details' => $track_details),
 	    		200);
+	    	}
+	    	else
+	    	{
+	    		return Response::json(array(
+	    			'status' => 'FAILED'),
+	    			200);
+	    	}	
+	    
 		}
 		else
 			return Response::json(array(

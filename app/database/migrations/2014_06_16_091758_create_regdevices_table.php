@@ -15,8 +15,9 @@ class CreateRegdevicesTable extends Migration {
 		Schema::create('registered_devices', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('app_id', 20);
+			$table->string('device_id');
 			$table->string('reg_id');
+			$table->string('user_id');
 			$table->timestamps();
 		});
 	}

@@ -12,8 +12,9 @@
 */
 
 Route::post('api/login', function() {
-	$username = Input::get('username');
-	$password = Input::get('password');
+	$username = Request::get('username');
+	$password = Request::get('password');
+	$device_id = Request::get('device_id');
 	
 	$field = filter_var($username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 	
@@ -23,6 +24,10 @@ Route::post('api/login', function() {
 		);
 
 	if(Auth::attempt($user)) {
+		$device = RegisteredDevice::where('device_id', '=', $device_id)->first();
+		$device->user_id = $username;
+		$device->save();
+
 		return Response::json(array(
 			"status" => 'OK'),
 			200
@@ -32,6 +37,20 @@ Route::post('api/login', function() {
 	return Response::json(array(
 			"status" => 'FAILED'),
 			200);
+});
+
+Route::post('api/logout', function() {
+	$username = Request::get('username');
+	$device_id = Request::get('device_id');
+
+	$device = RegisteredDevice::where('device_id', '=', $device_id)->first();
+	$device->user_id = '';
+	$device->save();
+
+	return Response::json(array(
+			"status" => 'OK'),
+			200
+			);
 });
 
 Route::group(array('prefix' => 'api'), function()
@@ -47,7 +66,7 @@ Route::group(array('prefix' => 'api'), function()
     Route::resource('panicregister', 'PanicRegisterController');
 });
 
-Route::get('trackother/{userid}', 'TrackUserController@trackuser');
+Route::get('trackother/api/{userid}', 'TrackUserController@trackuser');
 
 Route::get('track', function()
 {

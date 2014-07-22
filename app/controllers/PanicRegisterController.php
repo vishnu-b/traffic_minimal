@@ -37,20 +37,39 @@ class PanicRegisterController extends \BaseController {
 		$username = Input::get('username');
 		$numbers = explode(',', Input::get('numbers'));
 
-		$panicNumbers->username = $username;
-		
-		for ($i=0; $i < sizeof($numbers) ; $i++) { 
-			$fieldName = 'panic_number_'.($i+1);
-			echo $fieldName;
-			$panicNumbers->$fieldName = $numbers[$i];
-		}
+		$rules = array(
+			"username" => "required|unique:panic_numbers"
+			);
+		$validator = Validator::make(Input::all(), $rules);
 
-		$panicNumbers->save();
-
-		return Response::json(array(
-			'status' => 'success'
+		if($validator->passes()){
+			$panicNumbers->username = $username;
+			for ($i=0; $i < sizeof($numbers) ; $i++) { 
+				$fieldName = 'panic_number_'.($i+1);
+				echo $fieldName;
+				$panicNumbers->$fieldName = $numbers[$i];
+			}
+			$panicNumbers->save();
+			return Response::json(array(
+			'status' => 'OK'
 			)
 			, 200);
+		}
+		else {
+			$panicNumbers = PanicNumber::where('username', '=', $username)->first();
+			for ($i=0; $i < sizeof($numbers) ; $i++) { 
+				$fieldName = 'panic_number_'.($i+1);
+				echo $fieldName;
+				$panicNumbers->$fieldName = $numbers[$i];
+			}
+			$panicNumbers->save();
+			return Response::json(array(
+				'status' => 'UPDATED'
+				)
+				, 200);
+		}
+
+		
 	}
 
 

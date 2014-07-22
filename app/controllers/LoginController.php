@@ -1,6 +1,6 @@
 <?php
 
-class DeviceRegisterController extends \BaseController {
+class LoginController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,8 +9,7 @@ class DeviceRegisterController extends \BaseController {
 	 */
 	public function index()
 	{
-		$regDevices= RegisteredDevice::all();
-		return Response::json($regDevices, 200);
+		//
 	}
 
 
@@ -21,7 +20,7 @@ class DeviceRegisterController extends \BaseController {
 	 */
 	public function create()
 	{
-		
+		//
 	}
 
 
@@ -32,15 +31,7 @@ class DeviceRegisterController extends \BaseController {
 	 */
 	public function store()
 	{
-		$device = new RegisteredDevice;
-		$device->device_id = Request::get('device_id');
-		$device->reg_id = Request::get('reg_id');
-		$device->save();
-
-		return Response::json(array(
-			'error' => false),
-			200
-		);
+		//
 	}
 
 

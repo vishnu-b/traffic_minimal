@@ -35,7 +35,7 @@ class TrafficJamController extends \BaseController {
 		$imageurl = '';
 		if(Request::get('image')!='')
 		{
-			$imageurl = "public/images/report/trafficjam_".time().".jpg";
+			$imageurl = "/images/report/trafficjam_".time().".jpg";
 			$base = Request::get('image');
 			$binary = base64_decode($base);
 	    	$ifp = fopen( $imageurl, "wb" ); 

@@ -34,12 +34,17 @@ class AccidentController extends \BaseController {
 	 */
 	public function store()
 	{
-		$imageurl = "public/images/report/accident_".time().".jpg";
-		$base = Request::get('image');
-		$binary = base64_decode($base);
-	    $ifp = fopen( $imageurl, "wb" ); 
-    	fwrite( $ifp, $binary); 
-    	fclose( $ifp ); 
+		$imageurl = '';
+		if(Request::get('image')!='')
+		{
+			$imageurl = "/images/report/accident_".time().".jpg";
+			$base = Request::get('image');
+			$binary = base64_decode($base);
+	    	$ifp = fopen( $imageurl, "wb" ); 
+    		fwrite( $ifp, $binary); 
+    		fclose( $ifp ); 
+    		$imageurl = 'http://125.62.200.54/traffic/' . $imageurl;
+    	}
 
     	$accident = Accident::create(array(
     		'user'		=> Request::get('user'),

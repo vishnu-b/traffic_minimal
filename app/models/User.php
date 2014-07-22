@@ -32,4 +32,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 								    'email.unique' => 'Email already registered. Try with different one.',
 								    'mobile.unique' => 'A user has already registered with this number.');
 
+	public function device()
+	{
+		return $this->belongsToMany('RegisteredDevice');
+	}
+
 }

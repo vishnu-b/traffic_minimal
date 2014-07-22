@@ -16,9 +16,9 @@ class CreatePanicNumbersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('username', 70)->unique();
-			$table->string('panic_number_1');
-			$table->string('panic_number_2');
-			$table->string('panic_number_3');
+			$table->string('panic_number_1', 10);
+			$table->string('panic_number_2', 10);
+			$table->string('panic_number_3', 10);
 			$table->timestamps();
 		});
 	}
