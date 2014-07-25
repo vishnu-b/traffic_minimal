@@ -34,6 +34,7 @@ class TrackAssignController extends \BaseController {
 		$tracker_ids = Request::get('tracker_ids') ;
 		$tracker_id = explode(',', $tracker_ids);
 		$usernameArray = [];
+		$response =null;
 
 		foreach ($tracker_id as $id)
 		{
@@ -58,19 +59,22 @@ class TrackAssignController extends \BaseController {
 						$assign->tracker_id = $username;
 						$assign->status = 1;
 						$assign->save();
+						return $response =  RestApi::trackNotification($username, Request::get('user_id'));
 					}
 					else
 					{
 						$validate->status = 1;
 						$validate->save();
+						return $response =  RestApi::trackNotification($username, Request::get('user_id'));
 					}
 				}	
 			}	
 		}
-		return Response::json(array(
+		//return $response;
+		/*return Response::json(array(
 				"status" => "OK",
 				"users" => $usernameArray),
-				200);
+				200);*/
 	}
 
 

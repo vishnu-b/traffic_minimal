@@ -6,9 +6,10 @@ class RestApi {
 		$api_key = "AIzaSyBH2OD9dUrh9yoYSowf_Fi5b2619AnJsbs";
 		$regIdArray = [];
 
-       	$message = array("flag" => $flag, "lat" => $lat, "lng" => $lng, "address" => $address, "ctime" => $ctime);
-		$url = 'https://android.googleapis.com/gcm/send';
+       	$url = 'https://android.googleapis.com/gcm/send';
 		$registrationIDs = RegisteredDevice::all(array('reg_id'));
+		$message = array("flag" => $flag, "lat" => $lat, "lng" => $lng, "address" => $address, "ctime" => $ctime);
+
 		foreach ($registrationIDs as $regId) {
 			array_push($regIdArray, $regId->reg_id);
 		}
@@ -34,7 +35,39 @@ class RestApi {
 		return $result;
 		curl_close($ch);
 	}
+	public static function trackNotification($userid, $trackid) {
+		$api_key = "AIzaSyBH2OD9dUrh9yoYSowf_Fi5b2619AnJsbs";
+		$regIdArray = [];
 
+       	$url = 'https://android.googleapis.com/gcm/send';
+		$registrationIDs = RegisteredDevice::where('user_id', '=', $userid)->get();
+		$message = array("flag" => 'TR', "user" => $trackid);
+		
+		foreach ($registrationIDs as $regId) {
+			array_push($regIdArray, $regId->reg_id);
+		}
+		$fields = array(
+                	'registration_ids'  => $regIdArray,
+               	 	'data'              => array( "message" => $message ),
+                );
+
+		$headers = array(
+					'Authorization: key=' . $api_key,
+					'Content-Type: application/json');
+					
+					
+					
+		$ch = curl_init();
+		//echo $ch;
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt( $ch, CURLOPT_POST, true );
+		curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+		curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( $fields ) );
+		$result = curl_exec($ch);
+		return $result;
+		curl_close($ch);
+	}
 	public static function getaddress($lat, $lng)
 	{
 		$url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($lat).','.trim($lng).'&sensor=false';

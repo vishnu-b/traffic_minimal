@@ -54,7 +54,11 @@ class UserRegisterController extends \BaseController {
 		}	
 		return Response::json(array(
 				'status' => 'FAILED',
-				'errors' => $validation->messages()
+				'errors' =>array(
+					'username' => $validation->messages()->first('username'),
+					'email' => $validation->messages()->first('email'),
+					'mobile' => $validation->messages()->first('mobile'))
+
 				));
 	}
 
