@@ -6,8 +6,10 @@
 	<body>
 		<h2>Password Reset</h2>
 
+		<img src="<?php echo $message->embed('localhost:8000/images/logo.png'); ?>">
+
 		<div>
-			To reset your password, complete this form: {{ URL::to('password/reset', array($token)) }}.
+			Your password has been reset. new password is: {{ $new_password }}.
 		</div>
 	</body>
 </html>

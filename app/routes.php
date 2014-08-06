@@ -62,11 +62,17 @@ Route::group(array('prefix' => 'api'), function()
     Route::resource('trackuser', 'TrackUserController');
     Route::resource('trackid', 'TrackIdController');
     Route::resource('trackassign', 'TrackAssignController');
-    Route::resource('register', 'UserRegisterController');
+    Route::resource('register', 'UserController');
     Route::resource('panicregister', 'PanicRegisterController');
 });
 
-Route::get('trackother/api/{userid}', 'TrackUserController@trackuser');
+Route::get('api/trackother/{userid}', 'TrackUserController@trackuser');
+
+Route::post('api/user/changePassword', 'UserController@changePassword');
+
+Route::post('api/user/changeMobileNumber', 'UserController@changeMobileNumber');
+
+Route::post('api/user/forgotPassword', 'UserController@forgotPassword');
 
 Route::get('track', function()
 {
