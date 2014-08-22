@@ -31,10 +31,20 @@ class DeviceRegisterController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
-		$device = new RegisteredDevice;
-		$device->device_id = Request::get('device_id');
-		$device->reg_id = Request::get('reg_id');
+	{	
+		$device_id = Request::get('device_id');
+		$device = RegisteredDevice::where('device_id', '=', $device_id)->first();
+		if($device)
+		{
+			$device->reg_id = Request::get('reg_id');;
+		}
+		else
+		{
+			$device = new RegisteredDevice;
+			$device->device_id = $device_id;
+			$device->reg_id = Request::get('reg_id');
+		}
+		
 		$device->save();
 
 		return Response::json(array(

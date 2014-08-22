@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&dummy=.js"></script>
 	{{ HTML::script('js/jquery-2.1.1.js')}}
 	{{ HTML::script('js/include-map.js') }}
 	@section('head')

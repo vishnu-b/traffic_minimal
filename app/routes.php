@@ -83,3 +83,13 @@ Route::get('accident', function()
 {
 	return View::make('pages.accident');
 });
+
+Route::get('trafficjam', function()
+{
+	return View::make('pages.trafficjam');
+});
+
+Route::get('restrictedroute', function()
+{
+	return View::make('pages.restrictedroute');
+});

@@ -53,7 +53,7 @@ class AccidentController extends \BaseController {
     		'time'		=> date('g:i A', time()),
     		'date'		=> date('M j', time()),
     		'details'	=> Request::get('details'),
-    		'image_url' => 'http://125.62.200.54/traffic/' . $imageurl
+    		'image_url' => $imageurl
     		));
 
 		$report = new Report;

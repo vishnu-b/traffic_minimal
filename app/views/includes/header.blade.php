@@ -9,6 +9,8 @@
         <span class="icon-bar"></span>
       </button>
       <a class="brand" href="#">{{ HTML::image('images/logo.png', 'Traffic logo', array('class'=>'logo')) }}</a>
+      @section('head-tag')
+      @show
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,9 +20,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Accident</a></li>
-            <li><a href="#">Traffic Jam</a></li>
-            <li><a href="#">Restricted Area</a></li>
+            <li><a href="accident">Accident</a></li>
+            <li><a href="trafficjam">Traffic Jam</a></li>
+            <li><a href="restrictedroute">Restricted Route</a></li>
           </ul>
         </li>
         <li class="dropdown">

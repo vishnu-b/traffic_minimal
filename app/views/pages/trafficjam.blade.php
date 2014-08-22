@@ -5,12 +5,13 @@
 @stop
 
 @section('title')
-	<title>Technowell Traffic | Citizen Tracking</title>
+	<title>Technowell Traffic | Traffic Jam Report</title>
 @stop
 
 @section('head-tag')
-    <b>&nbsp;&nbsp;&nbsp;&nbsp;Report Accident</b>
+    <b>&nbsp;&nbsp;&nbsp;&nbsp;Report Traffic Jam</b>
 @stop
+
 
 @section('content')
 	<div id="mapcanvas"></div>
@@ -25,7 +26,7 @@
 		</div>
 	    <div id="collapseOne" class="panel-collapse collapse in filter">
 	      	<div class="panel-body">
-	      		<form action="api/accident" method="POST">
+	      		<form action="api/trafficjam" method="POST">
 					<table class="loc-table">
 						<tbody>
 							<tr>
@@ -39,10 +40,22 @@
 							</tr>
 							<tr>
 								<td>
-									Details
+									Status
 								</td>
 								<td>
-									<textarea class="details" type="text" id="details" name="details" required>
+									<select name='status'>
+										<option value="heavy">Heavy</option>
+										<option value="moderate">Moderate</option>
+										<option value="low">Low</option>
+									</select>
+								</td>
+							</tr>	
+							<tr>
+								<td>
+									Reason
+								</td>
+								<td>
+									<textarea class="reason" type="text" id="details" name="reason" required>
 									</textarea>
 								</td>
 								<td>	
