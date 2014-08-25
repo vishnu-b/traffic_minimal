@@ -64,6 +64,7 @@ Route::group(array('prefix' => 'api'), function()
     Route::resource('trackassign', 'TrackAssignController');
     Route::resource('register', 'UserController');
     Route::resource('panicregister', 'PanicRegisterController');
+    Route::resource('roadblock', 'RoadBlockController');
 });
 
 Route::get('api/trackother/{userid}', 'TrackUserController@trackuser');
@@ -89,7 +90,7 @@ Route::get('trafficjam', function()
 	return View::make('pages.trafficjam');
 });
 
-Route::get('restrictedroute', function()
+Route::get('roadblock', function()
 {
-	return View::make('pages.restrictedroute');
+	return View::make('pages.roadblock');
 });

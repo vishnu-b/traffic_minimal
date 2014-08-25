@@ -17,7 +17,7 @@ class ReportController extends \BaseController {
 		$reports = [];
 		$report = Report::all();
 		foreach ( $report as $key ) {
-			if( ($key->clear_by >= date('Y-m-d H:i:s', time())) || $key->type == 'Accident' )
+			if( ($key->clear_by >= date('Y-m-d H:i:s', time())) || $key->type == 'Accident' || $key->type == 'Road Block')
 				array_push($reports, $key);
 		}
 		return Response::json(array('report'=>$reports), 200);
