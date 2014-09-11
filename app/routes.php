@@ -11,35 +11,7 @@
 |
 */
 
-Route::post('api/login', function() {
-	$username = Request::get('username');
-	$password = Request::get('password');
-	$device_id = Request::get('device_id');
-	
-	$field = filter_var($username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-	
-	$user = array(
-		$field => $username,
-		'password' => $password
-		);
-
-	if(Auth::attempt($user)) {
-		$device = RegisteredDevice::where('device_id', '=', $device_id)->first();
-		$device->user_id = $username;
-		$device->save();
-
-		return Response::json(array(
-			"status" => 'OK'),
-			200
-			);
-	}
-
-	return Response::json(array(
-			"status" => 'FAILED'),
-			200);
-});
-
-Route::post('api/logout', function() {
+/*Route::post('api/logout', function() {
 	$username = Request::get('username');
 	$device_id = Request::get('device_id');
 
@@ -51,29 +23,35 @@ Route::post('api/logout', function() {
 			"status" => 'OK'),
 			200
 			);
-});
+});*/
 
 Route::group(array('prefix' => 'api'), function()
 {
-    Route::resource('report', 'ReportController');
-    Route::resource('accident', 'AccidentController');
+    /*Route::resource('report', 'ReportController');
+    Route::resource('accident', 'AccidentController');*/
     Route::resource('trafficjam', 'TrafficJamController');
     Route::resource('registerdevice', 'DeviceRegisterController');
-    Route::resource('trackuser', 'TrackUserController');
+   /* Route::resource('trackuser', 'TrackUserController');
     Route::resource('trackid', 'TrackIdController');
     Route::resource('trackassign', 'TrackAssignController');
     Route::resource('register', 'UserController');
     Route::resource('panicregister', 'PanicRegisterController');
-    Route::resource('roadblock', 'RoadBlockController');
+    Route::resource('roadblock', 'RoadBlockController');*/
+    Route::resource('users', 'UserController');
+    Route::get('users/verify/{confirmation_code}', 'UserController@verify');
+    Route::post('users/login', 'UserController@login');
+    Route::resource('track', 'TrackUserController');
+    Route::post('track/start', 'TrackUserController@start');
+    Route::get('trackother/{tracker_id}', 'TrackUserController@trackother');
 });
 
-Route::get('api/trackother/{userid}', 'TrackUserController@trackuser');
+/*Route::get('api/trackother/{userid}', 'TrackUserController@trackuser');
 
-Route::post('api/user/changePassword', 'UserController@changePassword');
+Route::post('api/user/changepassword', 'UserController@changePassword');
 
-Route::post('api/user/changeMobileNumber', 'UserController@changeMobileNumber');
+Route::post('api/user/changemobilenumber', 'UserController@changeMobileNumber');
 
-Route::post('api/user/forgotPassword', 'UserController@forgotPassword');
+Route::post('api/user/forgotpassword', 'UserController@forgotPassword');
 
 Route::get('track', function()
 {
@@ -93,4 +71,4 @@ Route::get('trafficjam', function()
 Route::get('roadblock', function()
 {
 	return View::make('pages.roadblock');
-});
+});*/

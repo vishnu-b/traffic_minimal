@@ -38,9 +38,9 @@ class TrafficJamController extends \BaseController {
 			$imageurl = "/images/report/trafficjam_".time().".jpg";
 			$base = Request::get('image');
 			$binary = base64_decode($base);
-	    	$ifp = fopen( $imageurl, "wb" ); 
-    		fwrite( $ifp, $binary); 
-    		fclose( $ifp ); 
+	    	$ifp = fopen( $imageurl, "wb" );
+    		fwrite( $ifp, $binary);
+    		fclose( $ifp );
     		$imageurl = 'http://125.62.200.54/traffic/' . $imageurl;
     	}
 
@@ -69,8 +69,8 @@ class TrafficJamController extends \BaseController {
 		$report->type = 'Traffic Jam';
 		$report->title = RestApi::getaddress(Request::get('lat'), Request::get('lng'));
 		$report->save();
-
-		return RestApi::sendNotification('TJ', Request::get('lat'), Request::get('lng'), RestApi::getaddress(Request::get('lat'), Request::get('lng')), '12');
+		$values = array(Request::get('lat'), Request::get('lng'), '12');
+		return RestApi::sendNotification('TJ', $values);
 
 		/*return Response::json(array(
 			'error' => false),

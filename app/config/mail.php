@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.mandrillapp.com',
+	'host' => 'smtp.gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'traffic@technowellservices.com', 'name' => 'Technowell Traffic'),
+	'from' => array('address' => 'technowelltraffic@gmail.com', 'name' => 'Technowell Traffic'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'traffic@technowellservices.com',
+	'username' => 'technowelltraffic@gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'dymDRfLXxPB7yUkMRCDtBA',
+	'password' => 'GZ#12081',
 
 	/*
 	|--------------------------------------------------------------------------

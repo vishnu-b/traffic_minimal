@@ -8,3 +8,21 @@ $response = Route::dispatch($request);
 // Symphony documentation for the Route
 
 http://api.symfony.com/2.4/Symfony/Component/HttpFoundation/Request.html#method_create
+
+// The bad old query
+
+
+        $track_id = DB::select(DB::raw("SELECT t.* FROM track_user t
+                                        JOIN
+                                        ( SELECT track_id, latitude, longitude, MAX(id) maxId
+                                          FROM track_user GROUP BY track_id
+                                        ) t2
+                                        ON t.id = t2.maxId AND t.track_id = t2.track_id"));
+
+        for($i = 0; $i < sizeof($track_id); $i++)
+        {
+            if($track_id[$i]->status == 0)
+                unset($track_id[$i]);
+
+        }
+        return $track_id;

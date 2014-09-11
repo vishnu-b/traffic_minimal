@@ -21,7 +21,7 @@ class DeviceRegisterController extends \BaseController {
 	 */
 	public function create()
 	{
-		
+
 	}
 
 
@@ -31,7 +31,7 @@ class DeviceRegisterController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{	
+	{
 		$device_id = Request::get('device_id');
 		$device = RegisteredDevice::where('device_id', '=', $device_id)->first();
 		if($device)
@@ -44,11 +44,11 @@ class DeviceRegisterController extends \BaseController {
 			$device->device_id = $device_id;
 			$device->reg_id = Request::get('reg_id');
 		}
-		
+
 		$device->save();
 
 		return Response::json(array(
-			'error' => false),
+			'status' => 'OK'),
 			200
 		);
 	}

@@ -40,9 +40,9 @@ class AccidentController extends \BaseController {
 			$imageurl = "/images/report/accident_".time().".jpg";
 			$base = Request::get('image');
 			$binary = base64_decode($base);
-	    	$ifp = fopen( $imageurl, "wb" ); 
-    		fwrite( $ifp, $binary); 
-    		fclose( $ifp ); 
+	    	$ifp = fopen( $imageurl, "wb" );
+    		fwrite( $ifp, $binary);
+    		fclose( $ifp );
     		$imageurl = 'http://125.62.200.54/traffic/' . $imageurl;
     	}
 
@@ -52,8 +52,8 @@ class AccidentController extends \BaseController {
     		'longitude'	=> Request::get('lng'),
     		'time'		=> date('g:i A', time()),
     		'date'		=> date('M j', time()),
-    		'details'	=> Request::get('details'),
-    		'image_url' => $imageurl
+    		'details'		=> Request::get('details'),
+    		'image_url' 	=> $imageurl
     		));
 
 		$report = new Report;
@@ -64,9 +64,9 @@ class AccidentController extends \BaseController {
 		$report->time = date('g:i A', time());
 		$report->date = date('M j', time());
 		$report->description = "There has been an accident. " . Request::get('details');
-		$report->image_url = 'http://125.62.200.54/traffic/' . $imageurl;
+		$report->image_url = $imageurl;
 		$report->type = 'Accident';
-		$report->title = 'Test Value';//RestApi::getaddress(Request::get('lat'), Request::get('lng'));
+		$report->title = RestApi::getaddress(Request::get('lat'), Request::get('lng'));
 		$report->save();
 
 		//RestApi::sendNotification()

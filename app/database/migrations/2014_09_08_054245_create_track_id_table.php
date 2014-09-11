@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAppIdTable extends Migration {
+class CreateTrackIdTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -16,7 +16,8 @@ class CreateAppIdTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('track_id', 25);
-			$table->integer('status');
+			$table->string('username', 30);
+			$table->boolean('status');
 			$table->timestamps();
 		});
 	}

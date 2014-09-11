@@ -15,9 +15,8 @@ class CreateTrackAssignTable extends Migration {
 		Schema::create('track_assign', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('user_id');
+			$table->string('username');
 			$table->string('tracker_id');
-			$table->boolean('status');
 			$table->timestamps();
 		});
 	}

@@ -9,7 +9,7 @@
 		<img src="<?php echo $message->embed('localhost:8000/images/logo.png'); ?>">
 
 		<div>
-			Your password has been reset. new password is: {{ $new_password }}.
+			Your password has been reset. new password is: Test;
 		</div>
 	</body>
 </html>

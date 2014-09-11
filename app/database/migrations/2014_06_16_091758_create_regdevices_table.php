@@ -17,7 +17,7 @@ class CreateRegdevicesTable extends Migration {
 			$table->increments('id');
 			$table->string('device_id');
 			$table->string('reg_id');
-			$table->string('user_id');
+			$table->string('username', 30)->nullable();
 			$table->timestamps();
 		});
 	}
