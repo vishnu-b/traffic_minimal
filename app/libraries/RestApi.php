@@ -39,6 +39,18 @@ class RestApi {
                 }
 
                 break;
+            case 'ST':
+                $tracker_name = $valueArray[0];
+                $track_id = $valueArray[1];
+
+                $registrationIDs = RegisteredDevice::where('username', '=', $tracker_name)->get();
+                $message = array("flag" => "ST", "user" => $track_id);
+
+                foreach ($registrationIDs as $regId) {
+                    array_push($regIdArray, $regId->reg_id);
+                }
+
+                break;
         }
         print_r($regIdArray);
         print_r($message);

@@ -42,6 +42,7 @@ Route::group(array('prefix' => 'api'), function()
     Route::post('users/login', 'UserController@login');
     Route::resource('track', 'TrackUserController');
     Route::post('track/start', 'TrackUserController@start');
+    Route::post('track/stop', 'TrackUserController@stop');
     Route::get('trackother/{tracker_id}', 'TrackUserController@trackother');
 });
 

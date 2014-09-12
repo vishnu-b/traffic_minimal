@@ -220,14 +220,16 @@ class TrackUserController extends \BaseController {
                     $tracker_assign->save();
                 }
 
+                /*
+                    Send notification to trackers
+                */
+
+
                 $values = array($tracker_name->username, $user_track_id);
                 RestApi::sendNotification('TR', $values);
             }
         }
 
-        /*
-            Send notification to trackers
-        */
 
 
 
@@ -236,6 +238,26 @@ class TrackUserController extends \BaseController {
                               'trackid' => $track_id
                               ));
 
+    }
+
+    public function stop() {
+        $track_id = Request::get('trackid');
+        $username = TrackId::where('track_id', $track_id)->first();
+        $trackers = TrackAssign::where('username', $username->username)->get(array('tracker_id'));
+
+        foreach($trackers as $tracker) {
+            $values = array($tracker->tracker_id, $username->username);
+            RestApi::sendNotification('ST', $values);
+        }
+
+        $username->status = 0;
+        $username->save();
+
+        $query = "INSERT INTO track_user_backup (track_id, latitude, longitude, created_at, updated_at) SELECT track_id, latitude, longitude, created_at, updated_at FROM track_user WHERE track_id = '$track_id'";
+
+        DB::insert(DB::raw($query));
+
+        TrackUser::where('track_id', $track_id)->delete();
     }
 
 }

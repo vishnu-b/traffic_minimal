@@ -37,6 +37,7 @@ return array(
     'CreateRoadblocksTable' => $baseDir . '/app/database/migrations/2014_08_25_045422_create_roadblocks_table.php',
     'CreateTrackAssignTable' => $baseDir . '/app/database/migrations/2014_07_11_035723_create_track_assign_table.php',
     'CreateTrackIdTable' => $baseDir . '/app/database/migrations/2014_09_08_054245_create_track_id_table.php',
+    'CreateTrackUserBackupTable' => $baseDir . '/app/database/migrations/2014_09_12_094548_create_track_user_backup_table.php',
     'CreateTrackUserTable' => $baseDir . '/app/database/migrations/2014_06_17_063429_create_track_user_table.php',
     'CreateTrafficjamsTable' => $baseDir . '/app/database/migrations/2014_06_10_085926_create_trafficjams_table.php',
     'CreateUsersTable' => $baseDir . '/app/database/migrations/2014_06_04_063543_create_users_table.php',
